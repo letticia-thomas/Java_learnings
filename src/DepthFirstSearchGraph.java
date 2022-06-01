@@ -25,11 +25,8 @@ public class DepthFirstSearchGraph extends Graph{
 		DepthFirstSearchGraph dfs = new DepthFirstSearchGraph(4);
 		dfs.addVertex(0,1);
 		dfs.addVertex(0,2);
-		dfs.addVertex(1,2);
-		dfs.addVertex(2,0);
-		dfs.addVertex(2,3);
-		dfs.addVertex(3,3);
-		dfs.DepthFirst(2);
+		dfs.addVertex(1,3);
+		dfs.DepthFirst(0);
 	//	dfs.printList();
 
 }

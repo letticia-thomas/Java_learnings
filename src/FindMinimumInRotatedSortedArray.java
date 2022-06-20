@@ -1,4 +1,7 @@
-
+/*
+ Given the sorted rotated array nums of unique elements,
+ return the minimum element of this array.
+ */
 public class FindMinimumInRotatedSortedArray {
 	public static boolean FullyRotatedFlag = true;
 	public  int findSmallIndex(int nums[],int low,int high)

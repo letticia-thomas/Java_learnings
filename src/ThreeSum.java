@@ -1,61 +1,42 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-/*
- Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
- such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
-
-Notice that the solution set must not contain duplicate triplets.
- */
-import java.util.*;
-
-public class ThreeSum {
-
-	public static void main(String[] args) {
-		
-		int nums[] = {0,0,0,0};
-		List<List> list = new ArrayList<List>();
-		int sum,currSum;
-		int i,j,k;
-		Arrays.sort(nums);
-		for(i=0;i<nums.length-1;i++)
-		{
-			sum = 0 - nums[i];
-			j = i+1;
-			k = nums.length-1;
-			while(j<k)
-			{
-				currSum = nums[j]+nums[k];
-				if(currSum == sum)
-				{
-					List<Integer> subList = new ArrayList<Integer>();
-					subList.add(nums[i]);
-					subList.add(nums[j]);
-					subList.add(nums[k]);
-					list.add(subList);
-				}
-				if(currSum>sum)
-				{
-					while(k>j && nums[k]==nums[k-1])
-			        {
-				        k--;
-			        }
-                    k--;
-				}
-				else
-				{
-					while(k>j && nums[j]==nums[j+1])
-			        {
-				        j++;
-			        }
-                    j++;
-				}
-                while(i<nums.length-1 && nums[i]==nums[i+1])
-			    {
-				    i++;
-			    }
-			}
-		}
-		System.out.println(list);
-
-	}
-
+class ThreeSum {
+    public static void main(String[] args){
+        ThreeSum obj = new ThreeSum();
+        int[] nums = {-2,0,1,1,2};
+        obj.threeSum(nums);
+    }
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        for (int i = 0; i < nums.length; i++) {
+                int element = nums[i];
+                int start = i+1;
+                int end = nums.length -1;
+                while(start<end){
+                    int sum = nums[start]+nums[end];
+                    if((element+sum)==0){
+                        List<Integer> l = new ArrayList<Integer>();
+                        l.add(nums[i]);
+                        l.add(nums[start]);
+                        l.add(nums[end]);
+                        Collections.sort(l);
+                        if(!result.stream().anyMatch(list->list.equals(l)))
+                            result.add(l);
+                        start++;
+                        end--;
+                    }
+                    else if(element+sum<0){
+                        start++;
+                    }
+                    else{
+                        end--;
+                    }
+                }
+        }
+        return result;
+    }
 }

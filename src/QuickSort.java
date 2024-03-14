@@ -1,51 +1,49 @@
-import java.util.Arrays;
-/*
- Divide and conquer approach
- partion method returns the correct position of pivot element
- 	two loop variables one is for smaller index,one for loop throgh array
- Do quicksort recursively for left and right partition 
- */
+// In-place algorithm, space complexity: O(logn) for recursion. recurses through subarray
+// Time complexity: In between O(nlogn) and O(n2)
 
-public class QuickSort {
-	
-	public int partition(int arr[],int low, int high)
-	{
-		int pivot = arr[high];
-		int i =low-1;
-		int j,temp;
-		for(j=low;j<=high-1;j++)
-		{
-			if(pivot>arr[j])
-			{
-				i++;
-				temp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = temp;
-			}
-		}
-		temp = arr[i+1];
-		arr[i+1]= arr[high];
-		arr[high] = temp ;
-		return i+1;
-	}
-	
-	public void quickSort(int[] arr, int low, int high)
-	{
-		if(low<high)
-		{
-			int partition_index = partition(arr,low, high);
-			quickSort(arr,low,partition_index-1);
-			quickSort(arr,partition_index+1,high);
-		}
-	}
+package Sort;
 
-	public static void main(String[] args) {
-		
-		int arr[] = {7,1,5,3,6,4};
-		QuickSort q = new QuickSort();
-		q.quickSort(arr,0,arr.length-1);
-		
-		System.out.println(Arrays.toString(arr));
-	}
+class QuickSort {
+
+    public static void main(String[] args) {
+        int nums[] ={5,2,3,1};
+        QuickSort obj = new QuickSort();
+        obj.sortArray(nums);
+        for(int num:nums)
+        System.out.println(num);
+    }
+
+    public int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    public void quickSort(int[] nums, int start, int end) {
+        if (start >= end)
+            return;
+        int partition = partition(nums, start, end);
+        quickSort(nums, start, partition - 1);
+        quickSort(nums, partition + 1, end);
+    }
+
+    public int partition(int[] nums, int start, int end) {
+        int i = start-1;
+        int pivot = nums[end];
+        for (int j = start; j < end; j++) {
+            if (nums[j] < pivot) {
+                i++;
+                swap(nums, i, j);
+            }
+        }
+        i++;
+       swap(nums, end, i);
+        return i;
+    }
+
+    public void swap(int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
 
 }
